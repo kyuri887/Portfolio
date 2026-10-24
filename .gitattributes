@@ -1,0 +1,5 @@
+# LF em todos os arquivos de texto: o hash da CSP (index.html) depende dos bytes exatos
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary

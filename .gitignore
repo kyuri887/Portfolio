@@ -1,0 +1,16 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Dependências e logs (caso algum dia use npm)
+node_modules/
+*.log
+
+# Claude Code (configurações locais)
+.claude/

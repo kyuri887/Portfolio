@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net 'sha256-fufy9vyKrRXgfITGlYG3qbxBIDajccnNl0w6CYr3U7c='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Kauan Iury — Desenvolvedor Back-end Java</title>
+  <meta name="description" content="Portfólio de Kauan Iury: desenvolvedor back-end Java & Spring Boot. APIs REST, integrações, automações e IA para qualquer negócio, com experiência no mercado de seguros." />
+  <meta name="theme-color" content="#0d0d12" />
+  <meta property="og:title" content="Kauan Iury — Desenvolvedor Back-end Java" />
+  <meta property="og:description" content="Java, Spring Boot, APIs REST, integrações, automações e IA para qualquer negócio." />
+  <meta property="og:image" content="assets/kauan.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=VT323&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preload" as="image" href="assets/avatar.webp" type="image/webp" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js" },
+      "integrity": { "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js": "sha384-8/hf5tabFfIo0BPku31TKUvGIKpWGYaMwNtlSNqNyZzXgZCMd4lnOGWbJElML9dv" } }
+  </script>
+</head>
+<body class="is-loading">
+  <a class="skip-link" href="#sobre">Pular para o conteúdo</a>
+
+  <!-- Preloader: frase científica + terminal + "clique para entrar" -->
+  <div class="loader" role="dialog" aria-label="Carregando">
+    <div class="loader__hud" aria-hidden="true">
+      <span class="hud-tl">KI//BOOT_SEQ</span>
+      <span class="hud-tr">v2.0 · Santo André, SP</span>
+    </div>
+    <div class="loader__inner">
+      <div class="loader__avatar" data-cursor="nova frase" role="button" tabindex="0" aria-label="Mostrar outra frase">
+        <span class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <picture class="loader__avatar-img"><source srcset="assets/avatar.webp" type="image/webp" /><img src="assets/avatar.png" alt="" width="270" height="270" /></picture>
+      </div>
+      <figure class="loader__quote">
+        <blockquote id="quoteText"></blockquote>
+        <figcaption><span id="quoteAuthor"></span><small id="quoteRole"></small></figcaption>
+      </figure>
+      <p class="loader__hint">clique no avatar para outra frase</p>
+      <button class="loader__gate" id="loaderGate" tabindex="-1">
+        <span class="blink">[ clique em qualquer lugar para entrar ]</span>
+        <small>melhor experiência com som ligado</small>
+      </button>
+    </div>
+    <div class="loader__status">
+      <p class="loader__terminal" id="loaderTerminal" aria-hidden="true"></p>
+      <span class="loader__count"><span id="loaderCount">0</span>%</span>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+  <div class="tiles" aria-hidden="true"></div>
+
+  <!-- 3D background -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Moldura HUD -->
+  <div class="frame" aria-hidden="true">
+    <span class="frame__c frame__c--tl"></span><span class="frame__c frame__c--tr"></span>
+    <span class="frame__c frame__c--bl"></span><span class="frame__c frame__c--br"></span>
+    <span class="frame__xy" id="hudXY">x 0000 · y 0000</span>
+    <span class="frame__sec"><span id="hudSection">[01/06] início</span> · <span id="hudPct">000</span>%</span>
+  </div>
+
+  <!-- Cursor: colchetes que se encaixam nos elementos -->
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor__box"><i></i><i></i><i></i><i></i><span class="cursor__label"></span></span>
+    <span class="cursor__dot"></span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#inicio" class="logo" aria-label="Início">
+      <span class="logo__avatar"><picture class="logo__avatar-img"><source srcset="assets/avatar.webp" type="image/webp" /><img src="assets/avatar.png" alt="" width="270" height="270" /></picture></span>
+      <span class="logo__name">KAUAN_IURY</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#sobre"><span data-scramble>sobre</span></a>
+      <a href="#projetos"><span data-scramble>projetos</span></a>
+      <a href="#api"><span data-scramble>api</span></a>
+      <a href="#trajetoria"><span data-scramble>trajetória</span></a>
+    </nav>
+    <div class="header__right">
+      <button class="sound" id="soundToggle" aria-pressed="true" aria-label="Som ligado">
+        <span class="sound__wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="sound__label">som <b class="sound__on">on</b><b class="sound__off">off</b></span>
+      </button>
+      <a href="#contato" class="btn btn--small" data-magnetic><span data-scramble>vamos conversar</span></a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true" inert>
+    <a href="#sobre">[01] sobre</a><a href="#projetos">[02] projetos</a><a href="#api">[03] api</a><a href="#trajetoria">[04] trajetória</a><a href="#contato">[05] contato</a>
+  </div>
+
+  <!-- Navegação lateral por capítulos -->
+  <nav class="dots" aria-label="Seções"></nav>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero" data-shape="0" data-x="0" data-label="início">
+      <div class="hero__content">
+        <p class="hero__eyebrow">[ desenvolvedor back-end java · santo andré, sp ]</p>
+        <h1 class="hero__title"><span class="split" data-split>KAUAN</span> <span class="split" data-split>IURY</span></h1>
+        <p class="hero__lead">Construo <strong>APIs</strong>, <strong>integrações</strong> e <strong>automações</strong> com Java &amp; Spring Boot — e aplico <strong>IA</strong> para resolver problemas reais de negócio, com experiência forte no mercado de seguros.</p>
+        <div class="hero__ctas">
+          <a href="#projetos" class="btn" data-magnetic data-cursor="ver"><span data-scramble>[ver projetos]</span></a>
+          <a href="#api" class="btn btn--ghost" data-magnetic data-cursor="GET"><span data-scramble>[testar minha api]</span></a>
+        </div>
+      </div>
+
+      <div class="touchpoints" id="touchpoints"></div>
+
+      <a href="#sobre" class="scroll-cue" aria-label="Rolar para baixo"><span class="blink" data-scramble>[role para baixo]</span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-pin">
+      <div class="marquee" aria-label="Tecnologias">
+        <div class="marquee__track">
+          <ul class="marquee__list">
+            <li>Java</li><li>Spring Boot</li><li>Python</li><li>APIs REST</li><li>MySQL</li><li>Integrações</li><li>RAG</li><li>Fine-tuning</li><li>Automação</li><li>SOLID</li><li>Git</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="sobre" class="about section" data-shape="1" data-x="-1.9" data-alpha="0.8" data-label="sobre">
+      <div class="container about__grid">
+        <div class="about__media">
+          <div class="photo-card" data-tilt data-cursor="oi!">
+            <div class="photo-card__inner">
+              <div class="photo-card__bg" aria-hidden="true">
+                <span class="photo-card__glow"></span>
+                <span class="photo-card__mono">KI</span>
+              </div>
+              <picture class="photo-card__person">
+                <source srcset="assets/kauan-cutout.webp" type="image/webp" />
+                <img src="assets/kauan-cutout.png" alt="Foto de Kauan Iury" width="1000" height="1000" loading="lazy" decoding="async" />
+              </picture>
+              <div class="photo-card__shine"></div>
+            </div>
+            <span class="corners corners--lg" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <div class="photo-card__caption">
+              <strong>Kauan Iury</strong>
+              <span>back-end java · insurtech</span>
+            </div>
+            <span class="chip chip--float" data-depth="40" style="--y:10%;--d:0s">[ java ]</span>
+            <span class="chip chip--float chip--right" data-depth="60" style="--y:10%;--d:-1.4s">[ spring boot ]</span>
+            <span class="chip chip--float chip--right" data-depth="30" style="--y:66%;--d:-2.8s">[ rag ]</span>
+            <span class="chip chip--float" data-depth="50" style="--y:66%;--d:-0.7s">[ insurtech ]</span>
+          </div>
+        </div>
+
+        <div class="about__text">
+          <p class="eyebrow" data-type>&gt; 01 — carregando perfil...</p>
+          <h2 class="statement" data-blur>Sou desenvolvedor de software focado em Java, Spring Boot e APIs REST, criando soluções tecnológicas para o mercado de seguros.</h2>
+          <div class="about__body">
+            <p data-reveal>Minha trajetória combina experiência no segmento de <strong>Seguro Garantia</strong> com o desenvolvimento de sistemas, integrações e automações para o setor. Entendo tanto a operação do negócio quanto os desafios técnicos de construir soluções eficientes.</p>
+            <p data-reveal>Meu foco é <strong>Java</strong>, mas também transito com desenvoltura por <strong>Python</strong>. Nele, trabalho lado a lado com a <strong>inteligência artificial</strong>: uso a IA como copiloto para explorar soluções, acelerar entregas e elevar a qualidade do código, sempre entendendo e validando cada linha.</p>
+            <p data-reveal>Valorizo <strong>SOLID</strong> e boas práticas de engenharia: sistemas organizados, seguros, escaláveis e fáceis de manter. Diante de um desafio, procuro a causa, pesquiso alternativas, testo abordagens e construo algo consistente.</p>
+          </div>
+
+          <ul class="stats">
+            <li class="stat" data-reveal>
+              <span class="stat__num"><span data-count="3">0</span></span>
+              <span class="stat__label">APIs públicas integradas<br /><small>PNCP · Transparência · Compras.gov</small></span>
+            </li>
+            <li class="stat" data-reveal>
+              <span class="stat__num"><span data-count="5">0</span></span>
+              <span class="stat__label">frentes de solução<br /><small>CRM · integrações · automação · licitações · IA</small></span>
+            </li>
+            <li class="stat" data-reveal>
+              <span class="stat__num"><span data-count="2">0</span></span>
+              <span class="stat__label">técnicas de IA aplicadas<br /><small>RAG + fine-tuning</small></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS: seletor estilo HUD -->
+    <section id="projetos" class="work section" data-shape="2" data-x="0" data-label="projetos">
+      <div class="container work__head">
+        <p class="eyebrow" data-type>&gt; 02 — listando projetos...</p>
+        <h2 class="title" data-blur>Sistemas que rodam <span class="text-accent">o negócio de verdade.</span></h2>
+      </div>
+      <div class="container work__grid">
+        <div class="work__side">
+          <div class="work__list" id="workList" role="tablist" aria-label="Projetos" aria-orientation="vertical">
+            <span class="work__corners" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="work__nav">
+            <button class="work__arrow" data-dir="-1" aria-label="Projeto anterior"><span data-scramble>[&lt;]</span></button>
+            <span class="work__count" id="workCount">01 / 05</span>
+            <button class="work__arrow" data-dir="1" aria-label="Próximo projeto"><span data-scramble>[&gt;]</span></button>
+          </div>
+        </div>
+        <div class="work__stage" aria-hidden="true">
+          <div class="work__titles" id="workTitles"></div>
+        </div>
+        <article class="work__panel panel" id="workPanel" role="tabpanel" aria-live="polite">
+          <span class="corners" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <p class="work__tag" id="workTag"></p>
+          <h3 class="work__title-sr" id="workTitle"></h3>
+          <p class="work__desc" id="workDesc"></p>
+          <dl class="work__facts">
+            <div><dt>desafio</dt><dd id="workProblem"></dd></div>
+            <div><dt>solução</dt><dd id="workSolution"></dd></div>
+            <div><dt>impacto</dt><dd id="workImpact"></dd></div>
+          </dl>
+          <ul class="work__stack" id="workStack"></ul>
+        </article>
+      </div>
+      <div class="container work__cta">
+        <p>Seu próximo projeto pode estar aqui.</p>
+        <a href="#contato" class="btn btn--ghost btn--small" data-magnetic><span data-scramble>[falar comigo]</span></a>
+      </div>
+    </section>
+
+    <!-- API PLAYGROUND -->
+    <section id="api" class="api section" data-shape="3" data-x="2.6" data-label="api">
+      <div class="container">
+        <!-- XADREZ: pausa interativa antes do playground -->
+        <div class="chess" id="chess" data-reveal>
+          <div class="chess__frame">
+            <span class="corners corners--lg" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <div class="chess__board" role="group" aria-label="Tabuleiro de xadrez" data-cursor="sua vez"></div>
+          </div>
+          <div class="chess__side">
+            <p class="eyebrow">&gt; pausa para um xadrez</p>
+            <h3 class="chess__title">Sua vez de <span class="text-accent">jogar.</span></h3>
+            <p class="chess__sub">Você joga de brancas contra mim. Arraste as peças ou clique na peça e depois na casa.</p>
+            <p class="chess__status" aria-live="polite"></p>
+            <pre class="chess__log" aria-label="Lances"></pre>
+            <div class="chess__actions">
+              <button class="btn btn--ghost btn--small" data-chess="undo"><span data-scramble>[desfazer]</span></button>
+              <button class="btn btn--small" data-chess="reset"><span data-scramble>[nova partida]</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <p class="eyebrow" data-type>&gt; 03 — iniciando playground...</p>
+          <h2 class="title" data-blur>Não leia meu currículo. <span class="text-accent">Consuma ele.</span></h2>
+          <p class="section-sub" data-reveal>Uma API fictícia sobre mim, no estilo que eu construo no dia a dia. Escolha um endpoint, veja o controller e clique em Request.</p>
+        </div>
+
+        <div class="console" data-reveal>
+          <span class="corners corners--lg" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <aside class="console__side">
+            <p class="console__group">endpoints</p>
+            <div class="console__endpoints" id="endpoints" role="tablist" aria-label="Endpoints"></div>
+          </aside>
+          <div class="console__main">
+            <div class="console__bar">
+              <span class="console__lights"><i></i><i></i><i></i></span>
+              <div class="console__url"><span class="method" id="reqMethod">GET</span><span id="reqPath">/api/v1/kauan</span></div>
+              <button class="btn btn--small" id="sendBtn" data-magnetic>request ▶</button>
+            </div>
+            <div class="console__tabs" role="tablist">
+              <button class="console__tab is-active" data-tab="code" role="tab" aria-selected="true">KauanController.java</button>
+              <button class="console__tab" data-tab="response" role="tab" aria-selected="false">Response</button>
+              <span class="console__status" id="resStatus"></span>
+            </div>
+            <pre class="console__out" id="consoleOut" aria-live="polite"><code></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="trajetoria" class="timeline section" data-shape="1" data-x="-2.4" data-alpha="0.45" data-label="trajetória">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow" data-type>&gt; 04 — lendo histórico...</p>
+          <h2 class="title" data-blur>Do negócio <span class="text-accent">ao código.</span></h2>
+        </div>
+        <ol class="tl">
+          <span class="tl__line" aria-hidden="true"><span class="tl__line-fill"></span></span>
+          <li class="tl__item">
+            <span class="tl__dot"></span>
+            <p class="tl__tag">[01] base de negócio</p>
+            <h3>Seguro Garantia</h3>
+            <p>Vivência na operação de Seguro Garantia: entendimento de processos, regras do ramo e das dores reais de quem usa os sistemas.</p>
+          </li>
+          <li class="tl__item">
+            <span class="tl__dot"></span>
+            <p class="tl__tag">[02] desenvolvimento</p>
+            <h3>CRMs &amp; integrações com seguradoras</h3>
+            <p>Desenvolvimento de CRMs e integrações com APIs de seguradoras, conectando o comercial à emissão.</p>
+          </li>
+          <li class="tl__item">
+            <span class="tl__dot"></span>
+            <p class="tl__tag">[03] automação</p>
+            <h3>Disparos e portais de licitação</h3>
+            <p>Automação de disparo de e-mails e portais de licitações integrados a PNCP, Portal da Transparência e Compras.gov.br.</p>
+          </li>
+          <li class="tl__item">
+            <span class="tl__dot"></span>
+            <p class="tl__tag">[04] inteligência artificial</p>
+            <h3>IA no hub corporativo</h3>
+            <p>Implantação de IA com RAG e fine-tuning para melhorar a qualidade das respostas e reduzir alucinações.</p>
+          </li>
+          <li class="tl__item tl__item--now">
+            <span class="tl__dot"></span>
+            <p class="tl__tag">[05] agora</p>
+            <h3>Arquitetura &amp; Spring Boot a fundo</h3>
+            <p>Evoluindo como desenvolvedor Java, aprofundando arquitetura de software e contribuindo para a transformação digital dos seguros. Formação na UNINOVE.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contato" class="contact section" data-shape="4" data-x="0" data-alpha="0.6" data-label="contato">
+      <div class="container contact__inner">
+        <p class="eyebrow" data-type>&gt; 05 — abrindo canal...</p>
+        <h2 class="contact__title"><span class="split" data-split>VAMOS</span> <span class="split text-accent" data-split>CONVERSAR?</span></h2>
+        <p class="section-sub contact__sub" data-reveal>Precisa tirar um sistema do papel, integrar ferramentas ou automatizar um processo? Seja qual for o seu segmento, eu desenvolvo a solução. Me chama.</p>
+        <div class="contact__links" data-reveal>
+          <a class="btn" href="https://www.linkedin.com/in/kauan-iury" target="_blank" rel="noopener noreferrer" data-magnetic><span data-scramble>[linkedin ↗]</span></a>
+          <a class="btn" href="https://wa.me/5511954432047" target="_blank" rel="noopener noreferrer" data-magnetic><span data-scramble>[whatsapp ↗]</span></a>
+          <a class="btn" href="mailto:kauan.iury@outlook.com" data-magnetic><span data-scramble>[enviar e-mail ↗]</span></a>
+        </div>
+      </div>
+      <footer class="footer container">
+        <span>© <span id="year"></span> Kauan Iury</span>
+        <span>data: <span id="date">--/--/----</span></span>
+        <span>hora (SP): <span id="clock">--:--:--</span></span>
+        <a href="#inicio" class="footer__top" data-magnetic><span data-scramble>[voltar ao topo ↑]</span></a>
+      </footer>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" integrity="sha384-B2WBjDzEjJpYvhmi2UyEn7rektqkf5suS6sNoyyrf0EBAwBHdkiXxIlU0V5Ru2ed" crossorigin="anonymous"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

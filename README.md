@@ -11,7 +11,7 @@ js/main.js        → interações + DADOS (projetos, API, frases, contato)
 js/scene.js       → cena 3D de partículas
 js/chess.js       → xadrez interativo (regras completas + IA simples)
 js/sound.js       → efeitos sonoros sintetizados (Web Audio, sem arquivos)
-assets/           → foto, avatar, favicon
+assets/           → foto, avatar
 .nojekyll         → faz o GitHub Pages servir os arquivos como estão
 .gitattributes    → mantém quebras de linha LF (necessário para a CSP, ver "Segurança")
 ```
